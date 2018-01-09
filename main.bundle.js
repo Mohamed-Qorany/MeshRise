@@ -134,7 +134,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container class=\"app-container\">\r\n  <mat-sidenav #sidenav class=\"example-sidenav\">\r\n    <div class=\"sideMenuUserCard\">\r\n      <img src=\"assets/IMG/logo201.png\" alt=\"\" *ngIf=\"!currentUser.email\"/>\r\n      <img src=\"https://semantic-ui.com/images/avatar2/large/matthew.png\" alt=\"\" *ngIf=\"currentUser.email\"/>\r\n      <button mat-button class=\"center-block\" routerLink=\"../dash\" *ngIf=\"currentUser.firstName\">{{currentUser.firstName}}</button>\r\n    </div>\r\n    <ul class=\"sideMenuList\">\r\n      <li><a mat-button routerLink=\"../\" class=\"sideMenuList-Item\" (click)=\"sidenav.close()\"><i class=\"material-icons\">home</i> Home</a></li>\r\n      <li><a mat-button routerLink=\"../about\" class=\"sideMenuList-Item\" (click)=\"sidenav.close()\"><i class=\"material-icons\">help</i> About us</a></li>\r\n      <li><a mat-button class=\"sideMenuList-Item\" (click)=\"sidenav.close(); openContactUsModal()\"><i class=\"material-icons\">phone</i> Contact us</a></li>\r\n      <li><a mat-button class=\"sideMenuList-Item\" *ngIf=\"!currentUser.firstName\" (click)=\"sidenav.close(); openSignInModal()\"><i class=\"material-icons\">settings_power</i> signIn</a></li>\r\n      <li><a mat-button class=\"sideMenuList-Item\" *ngIf=\"!currentUser.firstName\" (click)=\"sidenav.close(); openSignUpModal()\"><i class=\"material-icons\">account_circle</i> SignUp</a></li>\r\n      <li><a mat-button class=\"sideMenuList-Item\" *ngIf=\"currentUser.firstName\" (click)=\"sidenav.close(); logOut()\"><i class=\"material-icons\">settings_power</i> logOut</a></li>\r\n    </ul>\r\n  </mat-sidenav>\r\n  <app-navbar [currentUser]=\"currentUser\" (updateUserStatus)=\"updateUser($event)\"></app-navbar>\r\n  <button mat-icon-button (click)=\"sidenav.open()\" id=\"mobilesidenNavBtn\">\r\n    <mat-icon aria-label=\"Example icon-button with a icon\"><i class=\"material-icons\">dehaze</i></mat-icon>\r\n  </button>\r\n  <router-outlet></router-outlet>\r\n</mat-sidenav-container>"
+module.exports = "<mat-sidenav-container class=\"app-container\">\r\n  <mat-sidenav #sidenav class=\"example-sidenav\">\r\n    <div class=\"sideMenuUserCard\">\r\n      <img src=\"assets/IMG/logo201.png\" alt=\"\" *ngIf=\"!currentUser.firstName\"/>\r\n      <img src=\"https://semantic-ui.com/images/avatar2/large/matthew.png\" alt=\"\" *ngIf=\"currentUser.firstName\"/>\r\n      <button mat-button class=\"center-block\" routerLink=\"../dash\" *ngIf=\"currentUser.firstName\">{{currentUser.firstName}}</button>\r\n    </div>\r\n    <ul class=\"sideMenuList\">\r\n      <li><a mat-button routerLink=\"../\" class=\"sideMenuList-Item\" (click)=\"sidenav.close()\"><i class=\"material-icons\">home</i> Home</a></li>\r\n      <li><a mat-button routerLink=\"../about\" class=\"sideMenuList-Item\" (click)=\"sidenav.close()\"><i class=\"material-icons\">help</i> About us</a></li>\r\n      <li><a mat-button class=\"sideMenuList-Item\" (click)=\"sidenav.close(); openContactUsModal()\"><i class=\"material-icons\">phone</i> Contact us</a></li>\r\n      <li><a mat-button class=\"sideMenuList-Item\" *ngIf=\"!currentUser.firstName\" (click)=\"sidenav.close(); openSignInModal()\"><i class=\"material-icons\">settings_power</i> signIn</a></li>\r\n      <li><a mat-button class=\"sideMenuList-Item\" *ngIf=\"!currentUser.firstName\" (click)=\"sidenav.close(); openSignUpModal()\"><i class=\"material-icons\">account_circle</i> SignUp</a></li>\r\n      <li><a mat-button class=\"sideMenuList-Item\" *ngIf=\"currentUser.firstName\" (click)=\"sidenav.close(); logOut()\"><i class=\"material-icons\">settings_power</i> logOut</a></li>\r\n    </ul>\r\n  </mat-sidenav>\r\n  <app-navbar [currentUser]=\"currentUser\" (updateUserStatus)=\"updateUser($event)\"></app-navbar>\r\n  <button mat-icon-button (click)=\"sidenav.open()\" id=\"mobilesidenNavBtn\">\r\n    <mat-icon aria-label=\"Example icon-button with a icon\"><i class=\"material-icons\">dehaze</i></mat-icon>\r\n  </button>\r\n  <router-outlet></router-outlet>\r\n</mat-sidenav-container>"
 
 /***/ }),
 
@@ -365,7 +365,7 @@ var DashboardComponent = (function () {
         this.user = { email: '', password: '', firstName: '', lastName: '', };
         this.currentUser = {};
         this.currentUser = JSON.parse(this._meshRiseService.retrieve());
-        if (!this.currentUser.email) {
+        if (!this.currentUser.firstName) {
             this.router.navigateByUrl('');
         }
     }
@@ -721,7 +721,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar id=\"appToolbar\">\r\n  <a routerLink=\"../\" class=\"animated fadeInLeft logo\"><img src=\"assets/IMG/logo201.png\" alt=\"\"/></a>\r\n  <a mat-button routerLink=\"../\" onclick=\"scrollToItem('#features')\" class=\"navLink animated fadeInDown\">features</a>\r\n  <a mat-button routerLink=\"../\" onclick=\"scrollToItem('#pricing')\" class=\"navLink animated fadeInDown\">PRICING</a>\r\n  <a mat-button class=\"navLink animated fadeInDown\" (click)=\"openContactUsModal()\">contact us</a>\r\n  <a mat-button routerLink=\"../about\" class=\"navLink animated fadeInDown\">ABOUT US</a>\r\n  <span class=\"example-spacer\"></span>\r\n  <button mat-raised-button *ngIf=\"!currentUser.firstName\" (click)=\"openSignInModal()\"  class=\"toolbarBtn animated fadeInRight radiusButton\" color=\"accent\">Sign IN</button>\r\n  <button mat-raised-button *ngIf=\"!currentUser.firstName\" (click)=\"openSignUpModal()\"  class=\"toolbarBtn animated fadeInRight radiusButton\" color=\"primary\">Sign UP</button>\r\n\r\n  <button mat-raised-button *ngIf=\"currentUser.firstName\" [matMenuTriggerFor]=\"userMenu\" class=\"toolbarUserMenu animated fadeInRight\" style=\"background: transparent;\">\r\n    <img src=\"https://semantic-ui.com/images/avatar2/large/matthew.png\" alt=\"\"/> {{currentUser.firstName}}\r\n  </button>\r\n  <mat-menu #userMenu=\"matMenu\">\r\n    <button mat-menu-item>dashBoard</button>\r\n    <button mat-menu-item (click)=\"logOut()\">LogOut</button>\r\n  </mat-menu>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar id=\"appToolbar\">\r\n  <a routerLink=\"../\" class=\"animated fadeInLeft logo\"><img src=\"assets/IMG/logo201.png\" alt=\"\"/></a>\r\n  <a mat-button routerLink=\"../\" onclick=\"scrollToItem('#features')\" class=\"navLink animated fadeInDown\">features</a>\r\n  <a mat-button routerLink=\"../\" onclick=\"scrollToItem('#pricing')\" class=\"navLink animated fadeInDown\">PRICING</a>\r\n  <a mat-button class=\"navLink animated fadeInDown\" (click)=\"openContactUsModal()\">contact us</a>\r\n  <a mat-button routerLink=\"../about\" class=\"navLink animated fadeInDown\">ABOUT US</a>\r\n  <span class=\"example-spacer\"></span>\r\n  <button mat-raised-button *ngIf=\"!currentUser.firstName\" (click)=\"openSignInModal()\"  class=\"toolbarBtn animated fadeInRight radiusButton\" color=\"accent\">Sign IN</button>\r\n  <button mat-raised-button *ngIf=\"!currentUser.firstName\" (click)=\"openSignUpModal()\"  class=\"toolbarBtn animated fadeInRight radiusButton\" color=\"primary\">Sign UP</button>\r\n\r\n  <button mat-raised-button *ngIf=\"currentUser.firstName\" [matMenuTriggerFor]=\"userMenu\" class=\"toolbarUserMenu animated fadeInRight\" style=\"background: transparent;\">\r\n    <img src=\"https://semantic-ui.com/images/avatar2/large/matthew.png\" alt=\"\"/> {{currentUser.firstName}} {{currentUser.lastName}}\r\n  </button>\r\n  <mat-menu #userMenu=\"matMenu\">\r\n    <a mat-menu-item routerLink=\"../dash\">dashBoard</a>\r\n    <button mat-menu-item (click)=\"logOut()\">LogOut</button>\r\n  </mat-menu>\r\n</mat-toolbar>"
 
 /***/ }),
 
@@ -769,7 +769,7 @@ var NavbarComponent = (function () {
     }
     NavbarComponent.prototype.ngOnInit = function () {
         this.currentUser = JSON.parse(this._meshRiseService.retrieve());
-        console.log("current user : ");
+        this.updateUserStatus.emit(this._meshRiseService.retrieve());
     };
     NavbarComponent.prototype.openSignInModal = function () {
         var _this = this;
@@ -780,7 +780,7 @@ var NavbarComponent = (function () {
                 // console.log("current user : ");
                 // console.log(this.currentUser);
                 _this.updateUserStatus.emit(_this._meshRiseService.retrieve());
-                // this.router.navigateByUrl('/dash');
+                _this.router.navigateByUrl('/dash');
             }
         });
         $(".mat-dialog-container").css({ "padding": "0px" });
