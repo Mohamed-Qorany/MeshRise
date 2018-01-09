@@ -598,6 +598,7 @@ module.exports = "<div class=\"pageContent\">\r\n  <Section class=\"landingSecti
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_settings__ = __webpack_require__("../../../../../src/app/app-settings.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("../../../material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__navbar_navbar_component__ = __webpack_require__("../../../../../src/app/navbar/navbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -611,11 +612,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var LandingComponent = (function () {
-    function LandingComponent(dialog) {
+    function LandingComponent(dialog, route, router) {
         this.dialog = dialog;
+        this.route = route;
+        this.router = router;
     }
-    LandingComponent.prototype.ngOnInit = function () { this.carouselOne = __WEBPACK_IMPORTED_MODULE_1__app_settings__["a" /* AppSettings */].carouselOne; };
+    LandingComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.carouselOne = __WEBPACK_IMPORTED_MODULE_1__app_settings__["a" /* AppSettings */].carouselOne;
+        this.sub = this.route.queryParams.subscribe(function (params) {
+            if (params['authToken']) {
+                _this.router.navigate(['/resetPassword'], { queryParams: { authToken: params['authToken'] } });
+            }
+        }, function (err) { }, function () { });
+    };
+    LandingComponent.prototype.ngOnDestroy = function () { this.sub.unsubscribe(); };
     LandingComponent.prototype.openSignUpModal = function () {
         this.dialog.open(__WEBPACK_IMPORTED_MODULE_3__navbar_navbar_component__["d" /* SignUpModal */]);
         $(".mat-dialog-container").css({ "padding": "0px" });
@@ -630,7 +643,7 @@ var LandingComponent = (function () {
             template: __webpack_require__("../../../../../src/app/landing/landing.component.html"),
             styles: [__webpack_require__("../../../../../src/app/landing/landing.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["c" /* MatDialog */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_material__["c" /* MatDialog */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* Router */]])
     ], LandingComponent);
     return LandingComponent;
 }());
